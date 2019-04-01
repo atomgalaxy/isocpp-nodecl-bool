@@ -45,40 +45,107 @@ Hidden friends -- or inline friend definitions -- are a great way to overload op
 means that they can't be found by regular name look-up rules. For example:
 
 ```cpp
-class widget_one {
-public:
-   widget_one() = default;
+namespace one {
+   class widget_one {
+   public:
+      widget_one() = default;
 
-   constexpr explicit widget_one(int x) noexcept
-      : x_{x}
-   {}
-private:
-   int x_ = 0;
+      constexpr explicit widget_one(int x) noexcept
+         : x_{x}
+      {}
 
-   friend constexpr bool operator==(widget_one const x, widget_one const y) noexcept
-   { return x.x_ == y.x_; }
+      constexpr int x() const noexcept
+      { return x_; }
+   private:
+      int x_ = 0;
+   };
 
-   friend constexpr bool operator!=(widget_one const x, widget_one const y) noexcept
+   constexpr bool operator==(widget_one const x, widget_one const y) noexcept
+      { return x.x() == y.x(); }
+
+   constexpr bool operator!=(widget_one const x, widget_one const y) noexcept
    { return not (x == y); }
-};
+} // namespace one
 
-class widget_two {
-public:
-   widget_two() = default;
+namespace two {
+   class widget_two {
+   public:
+      widget_two() = default;
 
-   constexpr explicit widget_two(int x) noexcept
-      : x_{x}
-   {}
+      constexpr explicit widget_two(int x) noexcept
+         : x_{x}
+      {}
 
-   constexpr bool operator==(widget_two const other) noexcept
-   { return x_ == other.x_; }
+      constexpr int x() const noexcept
+      { return x_; }
 
-   constexpr bool operator!=(widget_two const other) noexcept
-   { return not (*this == other); }
-private:
-   int x_ = 0;
-};
+      friend constexpr bool operator==(widget_two const x, widget_two const y) noexcept
+      { return x.x() == y.x(); }
+
+      friend constexpr bool operator!=(widget_two const x, widget_two const y) noexcept
+      { return not (x == y); }
+   private:
+      int x_ = 0;
+   };
+} // namespace two
+
+int main()
+{
+   // TODO show that you can't find widget_one operator== isn't findable outside ADL in an easy way
+}
 ```
+
+The difference between these two types is that `widget_one` has its comparison operators declared,
+whereas `widget_two` does not: this is the only occurrence of a declaration that is not a definition
+in the whole International Standard. These 'inline friend definitions' that don't have declarations
+have a _significant_ advantage over any of the ones that do have declarations: that is, they can
+_only_ be found by argument-dependent lookup. This means that they can't be called à la
+`two::operator==(widget_two{}, widget_two{})` (`widget_two{} == widget_two{}` is the canonical
+usage), and that the overload set for `operator==` is reduced: this means that looking up
+`operator==` is heavily reduced -- this lowers the burden on compile-times, because the compiler
+doesn't need to consider nearly as many overloads for a type where things don't matter (e.g.
+`operator==` for `vector<T>` doesn't need to be considered for `widget_two`!).
+
+The major drawback is that `operator==` is a _friend_ of `widget_two`, yet it does not need to be
+so: just as with member functions, functions (and types) should only be friends if they actually
+need to interact with the protected or private implementation details. Neither `widget_one`, nor
+`widget_two` need to interact with the implementation details (as demonstrated by `widget_one`), but
+as there's no way to define a function that is not also a declaration, we're in a bind: do we use
+this 'hidden friend' definition to make operators only findable by ADL, or do we declare them
+instead, and restrict what they can access?
+
+It would be nice for there to be a specifier, herein called `nodecl`, that took the advantages of
+both of the above, and none of the drawbacks. Example usage:
+
+```cpp
+namespace three {
+   class widget_three {
+   public:
+      widget_three() = default;
+
+      constexpr explicit widget_three(int x) noexcept
+         : x_{x}
+      {}
+
+      constexpr int x() const noexcept
+      { return x_; }
+   private:
+      int x_ = 0;
+   };
+
+   constexpr bool operator==(widget_three const x, widget_three const y) noexcept nodecl
+      { return x.x() == y.x(); }
+
+   constexpr bool operator!=(widget_three const x, widget_three const y) noexcept nodecl
+   { return not (x == y); }
+} // namespace three
+```
+
+Both `operator==` and `operator!=` in this third namespace are function definitions that _do not_
+have declarations. The `nodecl` specifier is a context-sensitive keyword (hence why it is on the RHS
+of the function definition).
+
+Besides operators, `nodecl` could be useful for overloads of `swap`, `iter_swap`, and `iter_move`.
 
 Proposed Wording {#wording}
 ===========================
