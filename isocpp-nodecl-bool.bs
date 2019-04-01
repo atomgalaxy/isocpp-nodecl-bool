@@ -166,10 +166,10 @@ Besides operators, `nodecl` could be useful for overloads of `swap`, `iter_swap`
 Proposed Wording {#wording}
 ===========================
 
-In [dcl.decl], modify paragraph 5 as follows:
+In [dcl.fct.def.general], modify paragraph 1 as follows:
 
-_parameters_and_qualifiers_:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;( _parameter-declaration-clause_ _<sub>opt</sub>_ ) _cv-qualifier-seq_ _<sub>opt</sub>_ _ref-qualifier_ _<sub>opt</sub>_ _noexcept-specifier_ _<sub>opt</sub>_ <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins> _attribute-specifier-seq_ _<sub>opt</sub>_
+_function-definition_:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; _attribute-specifier-seq_ _<sub>opt</sub>_ _decl-specifier-seq_ _<sub>opt</sub>_ _declarator_ _virt-specifier-seq_ _<sub>opt</sub>_ <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins> _function-body_ 
 <br><br>
 <ins>_nodecl-specifier:_</ins><br>
  &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></ins><br>
@@ -178,8 +178,9 @@ _parameters_and_qualifiers_:<br>
  Add a new paragraph below as follows:
  
  <ins>
- In a <em>nodecl-specifier</em>, the _constant-expression_, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>.
+ In a <em>nodecl-specifier</em>, the _constant-expression_, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>; if it evaluates to <tt>true</tt>, or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</rm>.
  </ins>
+ 
  
 
 Acknowledgements {#ack}
