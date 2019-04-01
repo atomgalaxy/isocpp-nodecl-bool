@@ -110,11 +110,11 @@ compiler error messages by reduce noise around name look-up candidate set printo
 
 The major drawbacks are that `operator==`:
 
-(a) is a _friend_ of `widget_two`, yet it does not need to be
+* is a _friend_ of `widget_two`, yet it does not need to be
 so: just as with member functions, functions (and types) should only be friends if they actually
 need to interact with the protected or private implementation details. Neither `widget_one`, nor
 `widget_two` need to interact with the implementation details (as demonstrated by `widget_one`).
-(b) must be written inline within the class declaration since adding a declaration for the function
+* must be written inline within the class declaration since adding a declaration for the function
 makes it findable by normal (non-ADL) lookup rules.
 
 Since there's no way to define a function that is not also a declaration, we're in a bind: do we use
