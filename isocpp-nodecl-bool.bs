@@ -159,6 +159,15 @@ Besides operators, `nodecl` could be useful for overloads of `swap`, `iter_swap`
 Proposed Wording {#wording}
 ===========================
 
+In [dcl.decl], modify paragraph 5 as follows:
+
+_parameters_and_qualifiers_:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;( _parameter-declaration-clause_ _<sub>opt</sub>_ ) _cv-qualifier-seq_ _<sub>opt</sub>_ _ref-qualifier_ _<sub>opt</sub>_ _noexcept-specifier_ _<sub>opt</sub>_ <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins> _attribute-specifier-seq_ _<sub>opt</sub>_
+<br><br>
+<ins>_nodecl-specifier:_</ins><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></ins><br>
+ &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt>( _constant-expression_ )</ins>
+
 Acknowledgements {#ack}
 ================
 
