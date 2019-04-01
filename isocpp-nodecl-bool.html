@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="26e45c2a2be1a5a2516e92c96eb73c9153a69da6" name="document-revision">
+  <meta content="6fbdf879748a91031d1c214ec2bb7720d8f295bf" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1630,11 +1630,13 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
     <tt>bool</tt>
     ; if it evaluates to 
     <tt>true</tt>
-    , or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition. </em>
+    , or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</em>. 
    </ins>
-   <em> <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2> </em>
+    <br><br> In [basic.lookup], add a new paragraph as follows: <br><br> 
+   <ins> A <em>nodecl-definition</em> ([dcl.fct.def.general]) is ignored by both qualified name lookup ([basic.lookup.qual]) and unqualified name lookup ([basic.lookup.unqual]), and is only considered by argument-dependent name lookup ([basic.lookup.argdep]). </ins>
+   <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2>
   </main>
-  <em> <script>
+<script>
 (function() {
   "use strict";
   var collapseSidebarText = '<span aria-hidden="true">←</span> '
@@ -1762,4 +1764,4 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
   }
 
 })();
-</script> </em>
+</script>
