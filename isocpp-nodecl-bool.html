@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="17fd674f65af860c3aebc72565207381caa5ea83" name="document-revision">
+  <meta content="386f1f8f7d1dd9716f148361353e0524e6c46460" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1465,7 +1465,7 @@ pre .property::before, pre .property::after {
      <dd>
       <dd class="editor p-author h-card vcard"><span class="p-name fn">Timur Doumler &lt;papers@timur.audio></span>
      <dd>
-      <dd class="editor p-author h-card vcard"><span class="p-name fn">Christopher DiBella &lt;></span>
+      <dd class="editor p-author h-card vcard"><span class="p-name fn">Christopher DiBella</span>
      <dd>
       <dd class="editor p-author h-card vcard"><span class="p-name fn">Phil Nash &lt;isocpp@philnash.me></span>
      <dt>Audience:
@@ -1479,7 +1479,7 @@ pre .property::before, pre .property::after {
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>how to hide your friends and define them too.</p>
+   <p>How to hide your friends and define them too.</p>
   </div>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
@@ -1535,7 +1535,7 @@ means that they can’t be found by regular name look-up rules (qualified or unq
 
 <c- b>int</c-> <c- n>main</c-><c- p>()</c->
 <c- p>{</c->
-  <c- n>Function</c-> <c- n>pointer</c-> <c- n>type</c-> <c- k>for</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- n>s</c->
+  <c- c1>// Function pointer types for operator&lt;&lt;</c->
   <c- k>using</c-> <c- n>StreamA</c-> <c- o>=</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>(</c-><c- o>*</c-><c- p>)(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>,</c-> <c- n>example</c-><c- o>::</c-><c- n>A</c-> <c- k>const</c-><c- o>&amp;</c-><c- p>);</c->
   <c- k>using</c-> <c- n>StreamB</c-> <c- o>=</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>(</c-><c- o>*</c-><c- p>)(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>,</c-> <c- n>example</c-><c- o>::</c-><c- n>B</c-> <c- k>const</c-><c- o>&amp;</c-><c- p>);</c->
   <c- n>StreamA</c-> <c- n>stream_a</c-> <c- o>=</c-> <c- n>example</c-><c- o>::</c-><c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>;</c-> <c- c1>// works</c->

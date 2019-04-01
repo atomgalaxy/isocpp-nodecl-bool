@@ -4,10 +4,10 @@ Status: P
 Audience: EWG
 Editor: Gašper Ažman <gasper.azman@gmail.com>
 Editor: Timur Doumler <papers@timur.audio>
-Editor: Christopher DiBella <>
+Editor: Christopher DiBella
 Editor: Phil Nash <isocpp@philnash.me>
 Shortname: PXXXX
-Abstract: how to hide your friends and define them too.
+Abstract: How to hide your friends and define them too.
 Group: WG21
 Date: 2019-04-01
 Markup Shorthands: markdown yes
@@ -77,7 +77,7 @@ namespace example {
 
 int main()
 {
-  Function pointer type for operator<<s
+  // Function pointer types for operator<<
   using StreamA = std::ostream&(*)(std::ostream&, example::A const&);
   using StreamB = std::ostream&(*)(std::ostream&, example::B const&);
   StreamA stream_a = example::operator<<; // works
