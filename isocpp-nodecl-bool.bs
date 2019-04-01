@@ -1,12 +1,12 @@
 <pre class='metadata'>
-Title: Nodecl(bool) - An Independance of Declarations
-Status: P
+Title: Nodecl(bool) - The Independence of Declaration
+Status: D
 Audience: EWG
 Editor: Gašper Ažman <gasper.azman@gmail.com>
 Editor: Timur Doumler <papers@timur.audio>
-Editor: Christopher DiBella
+Editor: Christopher DiBella <cjdb.ns@gmail.com>
 Editor: Phil Nash <isocpp@philnash.me>
-Shortname: PXXXX
+Shortname: DXXXXR0
 Abstract: How to hide your friends and define them too.
 Group: WG21
 Date: 2019-04-01
@@ -36,10 +36,10 @@ Revision History {#history}
 0. Initial version!
 
 
-Status of this paper {#status}
+Target of this paper {#target}
 ====================
 
-This paper defines an out-of-standard extension to C++23.
+TThis paper proposes a new core language feature targeting C++23.
 
 
 Motivation {#motivation}
