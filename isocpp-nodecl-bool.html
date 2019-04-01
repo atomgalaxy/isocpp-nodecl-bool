@@ -2,7 +2,7 @@
  <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <title>PXXXXR0: Nodecl(bool) Hides your Friends, Hides your Wife</title>
+  <title>PXXXXR0: Nodecl(bool) - An Independance of Declarations</title>
 <style data-fill-with="stylesheet">/******************************************************************************
  *                   Style sheet for the W3C specifications                   *
  *
@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="56cc445f42f39044d37546e92e1b23420877285e" name="document-revision">
+  <meta content="25b798d8dde94038f9f24412676f4c3b48aebd05" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1453,7 +1453,7 @@ pre .property::before, pre .property::after {
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"></p>
-   <h1 class="p-name no-ref" id="title">PXXXXR0<br>Nodecl(bool) Hides your Friends, Hides your Wife</h1>
+   <h1 class="p-name no-ref" id="title">PXXXXR0<br>Nodecl(bool) - An Independance of Declarations</h1>
    <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Published Proposal, <time class="dt-updated" datetime="2019-04-01">2019-04-01</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
@@ -1493,60 +1493,60 @@ pre .property::before, pre .property::after {
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="history"><span class="secno">1. </span><span class="content">Revision History</span><a class="self-link" href="#history"></a></h2>
+   <ol start="0">
+    <li data-md>
+     <p>Initial version!</p>
+   </ol>
    <h2 class="heading settled" data-level="2" id="status"><span class="secno">2. </span><span class="content">Status of this paper</span><a class="self-link" href="#status"></a></h2>
    <p>This paper defines an out-of-standard extension to C++23.</p>
    <h2 class="heading settled" data-level="3" id="motivation"><span class="secno">3. </span><span class="content">Motivation</span><a class="self-link" href="#motivation"></a></h2>
    <p>Hidden friends -- or inline friend definitions -- are a great way to overload operators, because it
 means that they can’t be found by regular name look-up rules (qualified or unqualified). For example:</p>
-<pre class="language-cpp highlight"><c- k>namespace</c-> <c- n>one</c-> <c- p>{</c->
-   <c- k>class</c-> <c- nc>widget_one</c-> <c- p>{</c->
-   <c- k>public</c-><c- o>:</c->
-      <c- n>widget_one</c-><c- p>()</c-> <c- o>=</c-> <c- k>default</c-><c- p>;</c->
+<pre class="language-cpp highlight"><c- cp>#include</c-> &lt;iostream>
 
-      <c- k>constexpr</c-> <c- k>explicit</c-> <c- nf>widget_one</c-><c- p>(</c-><c- b>int</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c->
-         <c- o>:</c-> <c- n>x_</c-><c- p>{</c-><c- n>x</c-><c- p>}</c->
-      <c- p>{}</c->
+<c- k>namespace</c-> <c- n>example</c-> <c- p>{</c->
+  <c- k>struct</c-> <c- n>A</c-> <c- p>{</c->
+      <c- k>friend</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>o</c-><c- p>,</c-> <c- n>A</c-> <c- k>const</c-><c- o>&amp;</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c-><c- p>;</c->
 
-      <c- k>constexpr</c-> <c- b>int</c-> <c- n>x</c-><c- p>()</c-> <c- k>const</c-> <c- k>noexcept</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>x_</c-><c- p>;</c-> <c- p>}</c->
-   <c- k>private</c-><c- o>:</c->
+    <c- k>private</c-><c- o>:</c->
       <c- b>int</c-> <c- n>x_</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
-   <c- p>};</c->
+  <c- p>};</c->
 
-   <c- k>constexpr</c-> <c- b>bool</c-> <c- k>operator</c-><c- o>==</c-><c- p>(</c-><c- n>widget_one</c-> <c- k>const</c-> <c- n>x</c-><c- p>,</c-> <c- n>widget_one</c-> <c- k>const</c-> <c- n>y</c-><c- p>)</c-> <c- k>noexcept</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>x</c-><c- p>.</c-><c- n>x</c-><c- p>()</c-> <c- o>==</c-> <c- n>y</c-><c- p>.</c-><c- n>x</c-><c- p>();</c-> <c- p>}</c->
+  <c- c1>// public streaming operator</c->
+  <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>o</c-><c- p>,</c-> <c- n>A</c-> <c- k>const</c-><c- o>&amp;</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c-> <c- p>{</c->
+    <c- k>return</c-> <c- n>o</c-> <c- o>&lt;&lt;</c-> <c- s>"A("</c-> <c- o>&lt;&lt;</c-> <c- n>x</c-><c- p>.</c-><c- n>x_</c-> <c- o>&lt;&lt;</c-> <c- s>")"</c-><c- p>;</c->
+  <c- p>}</c->
 
-   <c- k>constexpr</c-> <c- b>bool</c-> <c- k>operator</c-><c- o>!=</c-><c- p>(</c-><c- n>widget_one</c-> <c- k>const</c-> <c- n>x</c-><c- p>,</c-> <c- n>widget_one</c-> <c- k>const</c-> <c- n>y</c-><c- p>)</c-> <c- k>noexcept</c->
-   <c- p>{</c-> <c- k>return</c-> <c- n>not</c-> <c- p>(</c-><c- n>x</c-> <c- o>==</c-> <c- n>y</c-><c- p>);</c-> <c- p>}</c->
-<c- p>}</c-> <c- c1>// namespace one</c->
+ <c- k>struct</c-> <c- n>B</c-> <c- p>{</c->
+    <c- c1>// public streaming operator, but ADL-only.</c->
+    <c- k>friend</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>o</c-><c- p>,</c-> <c- n>B</c-> <c- k>const</c-><c- o>&amp;</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c-> <c- p>{</c->
+      <c- k>return</c-> <c- n>o</c-> <c- o>&lt;&lt;</c-> <c- s>"B("</c-> <c- o>&lt;&lt;</c-> <c- n>x</c-><c- p>.</c-><c- n>x_</c-> <c- o>&lt;&lt;</c-> <c- s>")"</c-><c- p>;</c->
+    <c- p>}</c->
 
-<c- k>namespace</c-> <c- n>two</c-> <c- p>{</c->
-   <c- k>class</c-> <c- nc>widget_two</c-> <c- p>{</c->
-   <c- k>public</c-><c- o>:</c->
-      <c- n>widget_two</c-><c- p>()</c-> <c- o>=</c-> <c- k>default</c-><c- p>;</c->
-
-      <c- k>constexpr</c-> <c- k>explicit</c-> <c- nf>widget_two</c-><c- p>(</c-><c- b>int</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c->
-         <c- o>:</c-> <c- n>x_</c-><c- p>{</c-><c- n>x</c-><c- p>}</c->
-      <c- p>{}</c->
-
-      <c- k>constexpr</c-> <c- b>int</c-> <c- n>x</c-><c- p>()</c-> <c- k>const</c-> <c- k>noexcept</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>x_</c-><c- p>;</c-> <c- p>}</c->
-
-      <c- k>friend</c-> <c- k>constexpr</c-> <c- b>bool</c-> <c- k>operator</c-><c- o>==</c-><c- p>(</c-><c- n>widget_two</c-> <c- k>const</c-> <c- n>x</c-><c- p>,</c-> <c- n>widget_two</c-> <c- k>const</c-> <c- n>y</c-><c- p>)</c-> <c- k>noexcept</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>x</c-><c- p>.</c-><c- n>x</c-><c- p>()</c-> <c- o>==</c-> <c- n>y</c-><c- p>.</c-><c- n>x</c-><c- p>();</c-> <c- p>}</c->
-
-      <c- k>friend</c-> <c- k>constexpr</c-> <c- b>bool</c-> <c- k>operator</c-><c- o>!=</c-><c- p>(</c-><c- n>widget_two</c-> <c- k>const</c-> <c- n>x</c-><c- p>,</c-> <c- n>widget_two</c-> <c- k>const</c-> <c- n>y</c-><c- p>)</c-> <c- k>noexcept</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>not</c-> <c- p>(</c-><c- n>x</c-> <c- o>==</c-> <c- n>y</c-><c- p>);</c-> <c- p>}</c->
    <c- k>private</c-><c- o>:</c->
-      <c- b>int</c-> <c- n>x_</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
-   <c- p>};</c->
-<c- p>}</c-> <c- c1>// namespace two</c->
+     <c- b>int</c-> <c- n>x_</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
+ <c- p>};</c->
+<c- p>}</c-> <c- c1>// namespace example</c->
 
 <c- b>int</c-> <c- n>main</c-><c- p>()</c->
 <c- p>{</c->
-   <c- c1>// TODO show that you can’t find widget_one operator== isn’t findable outside ADL in an easy way</c->
+  <c- n>Function</c-> <c- n>pointer</c-> <c- n>type</c-> <c- k>for</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- n>s</c->
+  <c- k>using</c-> <c- n>StreamA</c-> <c- o>=</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>(</c-><c- o>*</c-><c- p>)(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>,</c-> <c- n>example</c-><c- o>::</c-><c- n>A</c-> <c- k>const</c-><c- o>&amp;</c-><c- p>);</c->
+  <c- k>using</c-> <c- n>StreamB</c-> <c- o>=</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>(</c-><c- o>*</c-><c- p>)(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-><c- p>,</c-> <c- n>example</c-><c- o>::</c-><c- n>B</c-> <c- k>const</c-><c- o>&amp;</c-><c- p>);</c->
+  <c- n>StreamA</c-> <c- n>stream_a</c-> <c- o>=</c-> <c- n>example</c-><c- o>::</c-><c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>;</c-> <c- c1>// works</c->
+  <c- n>StreamB</c-> <c- n>stream_b</c-> <c- o>=</c-> <c- n>example</c-><c- o>::</c-><c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>;</c-> <c- c1>// ERROR: lookup fails because ADL-only.</c->
 <c- p>}</c->
 </pre>
+   <p>This is important for layering. <code class="highlight"><c- k>operator</c-><c- o>&lt;&lt;</c-></code> is a customization point (an <em>aspect</em>) for interoperability with the standard streams library. If the
+streams library is not in use, the dependency is unwanted; yet,
+forward-declaring is insufficient: the definition, not just the declaration, of
+the hidden friend must appear in-line.</p>
+   <p>If the definition appears out-of-line, it adds a declaration to the namespace
+(as evidenced by <code class="highlight"><c- n>A</c-></code>), which means the operator can then be found by
+non-argument dependent lookup. In the case of <code class="highlight"><c- k>operator</c-><c- o>&lt;&lt;</c-></code>, this is
+undesirable, as every class and class template defines one, and so pruning this
+large overload set is very slow.</p>
+   <p>xxxxxxxxxxxxx</p>
    <p>The difference between these two types is that <code class="highlight"><c- n>widget_one</c-></code> has its comparison operators declared,
 whereas <code class="highlight"><c- n>widget_two</c-></code> does not: this is the only occurrence of a declaration that is not a definition
 in the whole International Standard. These 'inline friend definitions' that don’t have declarations

@@ -33,6 +33,9 @@ ED: https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html
 Revision History {#history}
 ================
 
+0. Initial version!
+
+
 Status of this paper {#status}
 ====================
 
@@ -46,55 +49,55 @@ Hidden friends -- or inline friend definitions -- are a great way to overload op
 means that they can't be found by regular name look-up rules (qualified or unqualified). For example:
 
 ```cpp
-namespace one {
-   class widget_one {
-   public:
-      widget_one() = default;
+#include <iostream>
 
-      constexpr explicit widget_one(int x) noexcept
-         : x_{x}
-      {}
+namespace example {
+  struct A {
+      friend std::ostream& operator<<(std::ostream& o, A const& x) noexcept;
 
-      constexpr int x() const noexcept
-      { return x_; }
-   private:
+    private:
       int x_ = 0;
-   };
+  };
 
-   constexpr bool operator==(widget_one const x, widget_one const y) noexcept
-      { return x.x() == y.x(); }
+  // public streaming operator
+  std::ostream& operator<<(std::ostream& o, A const& x) noexcept {
+    return o << "A(" << x.x_ << ")";
+  }
 
-   constexpr bool operator!=(widget_one const x, widget_one const y) noexcept
-   { return not (x == y); }
-} // namespace one
+ struct B {
+    // public streaming operator, but ADL-only.
+    friend std::ostream& operator<<(std::ostream& o, B const& x) noexcept {
+      return o << "B(" << x.x_ << ")";
+    }
 
-namespace two {
-   class widget_two {
-   public:
-      widget_two() = default;
-
-      constexpr explicit widget_two(int x) noexcept
-         : x_{x}
-      {}
-
-      constexpr int x() const noexcept
-      { return x_; }
-
-      friend constexpr bool operator==(widget_two const x, widget_two const y) noexcept
-      { return x.x() == y.x(); }
-
-      friend constexpr bool operator!=(widget_two const x, widget_two const y) noexcept
-      { return not (x == y); }
    private:
-      int x_ = 0;
-   };
-} // namespace two
+     int x_ = 0;
+ };
+} // namespace example
 
 int main()
 {
-   // TODO show that you can't find widget_one operator== isn't findable outside ADL in an easy way
+  Function pointer type for operator<<s
+  using StreamA = std::ostream&(*)(std::ostream&, example::A const&);
+  using StreamB = std::ostream&(*)(std::ostream&, example::B const&);
+  StreamA stream_a = example::operator<<; // works
+  StreamB stream_b = example::operator<<; // ERROR: lookup fails because ADL-only.
 }
 ```
+
+This is important for layering. `operator<<` is a customization point (an
+*aspect*) for interoperability with the standard streams library. If the
+streams library is not in use, the dependency is unwanted; yet,
+forward-declaring is insufficient: the definition, not just the declaration, of
+the hidden friend must appear in-line.
+
+If the definition appears out-of-line, it adds a declaration to the namespace
+(as evidenced by `A`), which means the operator can then be found by
+non-argument dependent lookup. In the case of `operator<<`, this is
+undesirable, as every class and class template defines one, and so pruning this
+large overload set is very slow.
+
+xxxxxxxxxxxxx
 
 The difference between these two types is that `widget_one` has its comparison operators declared,
 whereas `widget_two` does not: this is the only occurrence of a declaration that is not a definition
