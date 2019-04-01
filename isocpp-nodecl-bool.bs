@@ -1,7 +1,7 @@
 <pre class='metadata'>
 Title: Nodecl(bool) - An Independance of Declarations
 Status: P
-Audience: CWG
+Audience: EWG
 Editor: Gašper Ažman <gasper.azman@gmail.com>
 Editor: Timur Doumler <papers@timur.audio>
 Editor: Christopher DiBella <>
