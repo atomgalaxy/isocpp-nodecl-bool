@@ -42,7 +42,7 @@ Motivation {#motivation}
 ==========
 
 Hidden friends -- or inline friend definitions -- are a great way to overload operators, because it
-means that they can't be found by regular name look-up rules. For example:
+means that they can't be found by regular name look-up rules (qualified or unqualified). For example:
 
 ```cpp
 namespace one {
@@ -104,18 +104,26 @@ _only_ be found by argument-dependent lookup. This means that they can't be call
 usage), and that the overload set for `operator==` is reduced: this means that looking up
 `operator==` is heavily reduced -- this lowers the burden on compile-times, because the compiler
 doesn't need to consider nearly as many overloads for a type where things don't matter (e.g.
-`operator==` for `vector<T>` doesn't need to be considered for `widget_two`!).
+`operator==` for `vector<T>` doesn't need to be considered for `widget_two`!). It may also improve
+compiler error messages by reduce noise around name look-up candidate set printouts.
 
-The major drawback is that `operator==` is a _friend_ of `widget_two`, yet it does not need to be
+The major drawbacks are that `operator==`:
+
+(a) is a _friend_ of `widget_two`, yet it does not need to be
 so: just as with member functions, functions (and types) should only be friends if they actually
 need to interact with the protected or private implementation details. Neither `widget_one`, nor
-`widget_two` need to interact with the implementation details (as demonstrated by `widget_one`), but
-as there's no way to define a function that is not also a declaration, we're in a bind: do we use
+`widget_two` need to interact with the implementation details (as demonstrated by `widget_one`).
+(b) must be written inline within the class declaration since adding a declaration for the function
+makes it findable by normal (non-ADL) lookup rules.
+
+Since there's no way to define a function that is not also a declaration, we're in a bind: do we use
 this 'hidden friend' definition to make operators only findable by ADL, or do we declare them
 instead, and restrict what they can access?
 
-It would be nice for there to be a specifier, herein called `nodecl`, that took the advantages of
-both of the above, and none of the drawbacks. Example usage:
+We would live all the advantages - with none of the drawbacks - and so we propose a new specifier, 
+herein called `nodecl`, which allows us to indicate that a function should not have a declaration.
+
+Example usage:
 
 ```cpp
 namespace three {
