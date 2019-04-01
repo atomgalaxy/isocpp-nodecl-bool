@@ -180,12 +180,12 @@ Proposed Wording {#wording}
 
 In [dcl.fct.def.general], modify paragraph 1 as follows:
 
-_function-definition_:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; _attribute-specifier-seq_ _<sub>opt</sub>_ _decl-specifier-seq_ _<sub>opt</sub>_ _declarator_ _virt-specifier-seq_ _<sub>opt</sub>_ <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins> _function-body_ 
+<i>function-definition</i>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; <i>attribute-specifier-seq</i> <i><sub>opt</sub></i> <i>decl-specifier-seq</i> <i><sub>opt</sub></i> <i>declarator</i> <i>virt-specifier-seq</i> <i><sub>opt</sub></i> <ins><i>nodecl-specifier<i/> <i><sub>opt</sub></i></ins> <i>function-body</i> 
 <br><br>
-<ins>_nodecl-specifier:_</ins><br>
+<ins><i>nodecl-specifier:</i></ins><br>
  &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></ins><br>
- &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt>( _constant-expression_ )</ins>
+ &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt>( <i>constant-expression</i> )</ins>
  
  Add a new paragraph below as follows:
  

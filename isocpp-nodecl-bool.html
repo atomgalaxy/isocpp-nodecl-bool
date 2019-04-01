@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="6fbdf879748a91031d1c214ec2bb7720d8f295bf" name="document-revision">
+  <meta content="17fd674f65af860c3aebc72565207381caa5ea83" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1610,33 +1610,13 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
    <h2 class="heading settled" data-level="5" id="wording"><span class="secno">5. </span><span class="content">Proposed Wording</span><a class="self-link" href="#wording"></a></h2>
    <p>In [dcl.fct.def.general], modify paragraph 1 as follows:</p>
    <p>
-    _function-definition_:<br>      _attribute-specifier-seq_ _<sub>opt</sub>_ _decl-specifier-seq_ _<sub>opt</sub>_ _declarator_ _virt-specifier-seq_ _<sub>opt</sub>_ 
-    <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins>
-     _function-body_ <br><br>
+    <i>function-definition</i>:<br>      <i>attribute-specifier-seq</i> <i><sub>opt</sub></i> <i>decl-specifier-seq</i> <i><sub>opt</sub></i> <i>declarator</i> <i>virt-specifier-seq</i> <i><sub>opt</sub></i> 
+    <ins><i>nodecl-specifier<i> <i><sub>opt</sub></i></i></i></ins>
+    <i><i> <i>function-body</i> <br><br></i></i>
    </p>
-   <ins>_nodecl-specifier:_</ins>
-   <br>     
-   <ins>
-    <tt>nodecl </tt>
-   </ins>
-   <br>     
-   <ins>
-    <tt>nodecl </tt>
-    ( _constant-expression_ )
-   </ins>
-   <p>Add a new paragraph below as follows:</p>
-   <ins>
-     In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type 
-    <tt>bool</tt>
-    ; if it evaluates to 
-    <tt>true</tt>
-    , or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</em>. 
-   </ins>
-    <br><br> In [basic.lookup], add a new paragraph as follows: <br><br> 
-   <ins> A <em>nodecl-definition</em> ([dcl.fct.def.general]) is ignored by both qualified name lookup ([basic.lookup.qual]) and unqualified name lookup ([basic.lookup.unqual]), and is only considered by argument-dependent name lookup ([basic.lookup.argdep]). </ins>
-   <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2>
+   <i><i> <ins><i>nodecl-specifier:</i></ins><br>     <ins><tt>nodecl </tt></ins><br>     <ins><tt>nodecl </tt>( <i>constant-expression</i> )</ins> <p>Add a new paragraph below as follows:</p> <ins> In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>; if it evaluates to <tt>true</tt>, or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</em>. </ins> <br><br> In [basic.lookup], add a new paragraph as follows: <br><br> <ins> A <em>nodecl-definition</em> ([dcl.fct.def.general]) is ignored by both qualified name lookup ([basic.lookup.qual]) and unqualified name lookup ([basic.lookup.unqual]), and is only considered by argument-dependent name lookup ([basic.lookup.argdep]). </ins> <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2> </i></i>
   </main>
-<script>
+  <i><i> <script>
 (function() {
   "use strict";
   var collapseSidebarText = '<span aria-hidden="true">←</span> '
@@ -1764,4 +1744,4 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
   }
 
 })();
-</script>
+</script> </i></i>
