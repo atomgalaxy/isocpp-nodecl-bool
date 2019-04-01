@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="007907c9455c322bd3b40a77dbf4b5a9f23c81b1" name="document-revision">
+  <meta content="d48f5cc23f80e82e239d7cfc90f5aaa980515831" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1609,7 +1609,14 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
    <p>Besides operators, <code class="highlight"><c- n>nodecl</c-></code> could be useful for overloads of <code class="highlight"><c- n>swap</c-></code>, <code class="highlight"><c- n>iter_swap</c-></code>, and <code class="highlight"><c- n>iter_move</c-></code>, and things like <code class="highlight"><c- n>boost</c-><c- o>::</c-><c- n>serialization</c-></code>.</p>
    <h2 class="heading settled" data-level="5" id="wording"><span class="secno">5. </span><span class="content">Proposed Wording</span><a class="self-link" href="#wording"></a></h2>
    <p>In [dcl.fct.def.general], modify paragraph 1 as follows:</p>
-   <p><i> function-definition:<br>      attribute-specifier-seq <sub>opt</sub> decl-specifier-seq <sub>opt</sub> declarator virt-specifier-seq <sub>opt</sub> <ins>nodecl-specifier<i> <sub>opt</sub></i></ins><i> function-body </i> <br> nodecl-specifier:<br>     <ins><tt>nodecl </tt></ins><br>     <ins><tt>nodecl </tt></ins></i>(<i> constant-expression </i>)</p>
+   <p><i>function-definition:</i><br> <i>      attribute-specifier-seq <sub>opt</sub> decl-specifier-seq <sub>opt</sub> declarator virt-specifier-seq <sub>opt</sub> <ins>nodecl-specifier<sub>opt</sub></ins> function-body </i> <br></p>
+   <ins>
+     <i>nodecl-specifier:</i><br>     
+    <tt>nodecl</tt>
+    <br>     
+    <tt>nodecl</tt>
+    (<i> constant-expression </i>) 
+   </ins>
    <p>Add a new paragraph below as follows:</p>
    <ins>
      In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type 
