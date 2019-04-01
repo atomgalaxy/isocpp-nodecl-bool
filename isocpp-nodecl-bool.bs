@@ -3,7 +3,7 @@ Title: Nodecl(bool) - An Independance of Declarations
 Status: P
 Audience: CWG
 Editor: Gašper Ažman <gasper.azman@gmail.com>
-Editor: Timur Daumner <>
+Editor: Timur Doumler <papers@timur.audio>
 Editor: Christopher DiBella <>
 Editor: Phil Nash <isocpp@philnash.me>
 Shortname: PXXXX
