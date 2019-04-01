@@ -1,5 +1,5 @@
 <pre class='metadata'>
-Title: Nodecl(bool) Hides your Friends, Hides your Wife
+Title: Nodecl(bool) - An Independance of Declarations
 Status: P
 Audience: CWG
 Editor: Gašper Ažman <gasper.azman@gmail.com>
