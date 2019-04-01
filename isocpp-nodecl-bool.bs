@@ -122,7 +122,8 @@ this 'hidden friend' definition to make operators only findable by ADL, or do we
 instead, and restrict what they can access?
 
 We would live all the advantages - with none of the drawbacks - and so we propose a new specifier, 
-herein called `nodecl`, which allows us to indicate that a function should not have a declaration.
+herein called `nodecl`, which allows us to indicate that a function should not have a declaration that is visible
+during overload resolution.
 
 Example usage:
 
@@ -153,6 +154,9 @@ namespace three {
 Both `operator==` and `operator!=` in this third namespace are function definitions that _do not_
 have declarations. The `nodecl` specifier is a context-sensitive keyword (hence why it is on the RHS
 of the function definition).
+
+`nodecl` functions may no be defined outside the associated class and need not be a friend.
+You may also write a separate declaration and definition - it's just that the declaraton will not be visibke during overload resolution.
 
 Besides operators, `nodecl` could be useful for overloads of `swap`, `iter_swap`, and `iter_move`.
 
