@@ -41,6 +41,45 @@ Status of this paper {#status}
 Motivation {#motivation}
 ==========
 
+Hidden friends -- or inline friend definitions -- are a great way to overload operators, because it
+means that they can't be found by regular name look-up rules. For example:
+
+```cpp
+class widget_one {
+public:
+   widget_one() = default;
+
+   constexpr explicit widget_one(int x) noexcept
+      : x_{x}
+   {}
+private:
+   int x_ = 0;
+
+   friend constexpr bool operator==(widget_one const x, widget_one const y) noexcept
+   { return x.x_ == y.x_; }
+
+   friend constexpr bool operator!=(widget_one const x, widget_one const y) noexcept
+   { return not (x == y); }
+};
+
+class widget_two {
+public:
+   widget_two() = default;
+
+   constexpr explicit widget_two(int x) noexcept
+      : x_{x}
+   {}
+
+   constexpr bool operator==(widget_two const other) noexcept
+   { return x_ == other.x_; }
+
+   constexpr bool operator!=(widget_two const other) noexcept
+   { return not (*this == other); }
+private:
+   int x_ = 0;
+};
+```
+
 Proposed Wording {#wording}
 ===========================
 
