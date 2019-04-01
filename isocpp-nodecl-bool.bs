@@ -190,7 +190,13 @@ _function-definition_:<br>
  Add a new paragraph below as follows:
  
  <ins>
- In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>; if it evaluates to <tt>true</tt>, or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</rm>.
+ In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>; if it evaluates to <tt>true</tt>, or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</em>.
+ </ins>
+ <br><br>
+ In [basic.lookup], add a new paragraph as follows:
+ <br><br>
+ <ins>
+ A <em>nodecl-definition</em> ([dcl.fct.def.general]) is ignored by both qualified name lookup ([basic.lookup.qual]) and unqualified name lookup ([basic.lookup.unqual]), and is only considered by argument-dependent name lookup ([basic.lookup.argdep]).  
  </ins>
  
  
