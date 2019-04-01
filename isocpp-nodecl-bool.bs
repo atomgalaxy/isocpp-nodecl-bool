@@ -85,11 +85,11 @@ int main()
 }
 ```
 
-If the definition appears out-of-line, it adds a declaration to the namespace
-(as evidenced by `A`), which means the operator can then be found by
-non-argument dependent lookup. In the case of `operator<<`, this is
-undesirable, as every class and class template defines one, and so pruning this
-large overload set is very slow.
+Such operators can be found by argument-dependent lookup (ADL).  If the
+definition appears out-of-line, it adds a declaration to the namespace (as
+evidenced by `A`), which means the operator can then also be found by non-ADL.
+In the case of `operator<<`, this is undesirable, as every class and class
+template defines one, and so pruning this large overload set is very slow.
 
 It also prevents users from using functions the library provides in
 inappropriate ways. They are only supposed to be used as expressions, and their
