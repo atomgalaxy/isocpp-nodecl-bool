@@ -12,7 +12,7 @@ Group: WG21
 Date: 2019-04-01
 Markup Shorthands: markdown yes
 Revision: 0
-ED: https://github.com/atomgalaxy/using-enum/using-enum.bs
+ED: https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html
 </pre>
 
 <style>
