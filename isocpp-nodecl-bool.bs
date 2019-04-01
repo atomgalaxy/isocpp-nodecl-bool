@@ -6,7 +6,7 @@ Editor: Gašper Ažman <gasper.azman@gmail.com>
 Editor: Timur Doumler <papers@timur.audio>
 Editor: Christopher DiBella <cjdb.ns@gmail.com>
 Editor: Phil Nash <isocpp@philnash.me>
-Shortname: DXXXXR0
+Shortname: DXXXX
 Abstract: How to hide your friends and define them too.
 Group: WG21
 Date: 2019-04-01
