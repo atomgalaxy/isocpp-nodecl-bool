@@ -36,6 +36,7 @@ Revision History {#history}
 Status of this paper {#status}
 ====================
 
+This paper defines an out-of-standard extension to C++23.
 
 
 Motivation {#motivation}
