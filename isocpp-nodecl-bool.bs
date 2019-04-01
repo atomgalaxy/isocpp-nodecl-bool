@@ -183,11 +183,11 @@ In [dcl.fct.def.general], modify paragraph 1 as follows:
 <i>
 function-definition:<br>
 &nbsp;&nbsp;&nbsp;&nbsp; attribute-specifier-seq <sub>opt</sub> decl-specifier-seq <sub>opt</sub> declarator virt-specifier-seq <sub>opt</sub> <ins>nodecl-specifier<i/> <sub>opt</sub></ins> function-body 
-<br><br>
-<ins>nodecl-specifier:</ins><br>
+</i>
+<br>
+<ins><i>nodecl-specifier:</i></ins><br>
  &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></ins><br>
- &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></i>(<i> constant-expression </i>)</i></ins>
-</i> 
+ &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt>(<i> constant-expression </i>)</ins>
 
  Add a new paragraph below as follows:
  
