@@ -39,7 +39,7 @@ Revision History {#history}
 Target of this paper {#target}
 ====================
 
-TThis paper proposes a new core language feature targeting C++23.
+This paper proposes a new core language feature targeting C++23.
 
 
 Motivation {#motivation}
@@ -180,13 +180,15 @@ Proposed Wording {#wording}
 
 In [dcl.fct.def.general], modify paragraph 1 as follows:
 
-<i>function-definition</i>:<br>
-&nbsp;&nbsp;&nbsp;&nbsp; <i>attribute-specifier-seq</i> <i><sub>opt</sub></i> <i>decl-specifier-seq</i> <i><sub>opt</sub></i> <i>declarator</i> <i>virt-specifier-seq</i> <i><sub>opt</sub></i> <ins><i>nodecl-specifier<i/> <i><sub>opt</sub></i></ins> <i>function-body</i> 
+<i>
+function-definition:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; attribute-specifier-seq <sub>opt</sub> decl-specifier-seq <sub>opt</sub> declarator virt-specifier-seq <sub>opt</sub> <ins>nodecl-specifier<i/> <sub>opt</sub></ins> function-body 
 <br><br>
-<ins><i>nodecl-specifier:</i></ins><br>
+<ins>nodecl-specifier:</ins><br>
  &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></ins><br>
- &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt>( <i>constant-expression</i> )</ins>
- 
+ &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></i>(<i> constant-expression </i>)</i></ins>
+</i> 
+
  Add a new paragraph below as follows:
  
  <ins>
