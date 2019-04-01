@@ -1,0 +1,53 @@
+<pre class='metadata'>
+Title: Nodecl(bool) Hides your Friends, Hides your Wife
+Status: P
+Audience: CWG
+Editor: Gašper Ažman <gasper.azman@gmail.com>
+Editor: Timur Daumner <>
+Editor: Christopher DiBella <>
+Editor: Phil Nash <>
+Shortname: PXXXX
+Abstract: how to hide your friends and define them too.
+Group: WG21
+Date: 2019-04-01
+Markup Shorthands: markdown yes
+Revision: 0
+ED: https://github.com/atomgalaxy/using-enum/using-enum.bs
+</pre>
+
+<style>
+.ins, ins, ins *, span.ins, span.ins * {
+  background-color: rgb(200, 250, 200);
+  color: rgb(0, 136, 0);
+  text-decoration: none;
+}
+
+.del, del, del *, span.del, span.del * {
+  background-color: rgb(250, 200, 200);
+  color: rgb(255, 0, 0);
+  text-decoration: line-through;
+  text-decoration-color: rgb(255, 0, 0);
+}
+</style>
+
+Revision History {#history}
+================
+
+Status of this paper {#status}
+====================
+
+
+
+Motivation {#motivation}
+==========
+
+Proposed Wording {#wording}
+===========================
+
+Acknowledgements {#ack}
+================
+
+
+<!--
+ vim: ft=markdown wrap linebreak nolist textwidth=0 wrapmargin=0
+-->
