@@ -5,7 +5,7 @@ Audience: CWG
 Editor: Gašper Ažman <gasper.azman@gmail.com>
 Editor: Timur Daumner <>
 Editor: Christopher DiBella <>
-Editor: Phil Nash <>
+Editor: Phil Nash <isocpp@philnash.me>
 Shortname: PXXXX
 Abstract: how to hide your friends and define them too.
 Group: WG21
