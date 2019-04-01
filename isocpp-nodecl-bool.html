@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="25b798d8dde94038f9f24412676f4c3b48aebd05" name="document-revision">
+  <meta content="27286af8a1d998a10c774a3b32a0727b7e1f1bc8" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1463,7 +1463,7 @@ pre .property::before, pre .property::after {
      <dd>
       <dd class="editor p-author h-card vcard"><span class="p-name fn">Gašper Ažman &lt;gasper.azman@gmail.com></span>
      <dd>
-      <dd class="editor p-author h-card vcard"><span class="p-name fn">Timur Daumner &lt;></span>
+      <dd class="editor p-author h-card vcard"><span class="p-name fn">Timur Doumler &lt;papers@timur.audio></span>
      <dd>
       <dd class="editor p-author h-card vcard"><span class="p-name fn">Christopher DiBella &lt;></span>
      <dd>
@@ -1486,9 +1486,14 @@ pre .property::before, pre .property::after {
    <ol class="toc" role="directory">
     <li><a href="#history"><span class="secno">1</span> <span class="content">Revision History</span></a>
     <li><a href="#status"><span class="secno">2</span> <span class="content">Status of this paper</span></a>
-    <li><a href="#motivation"><span class="secno">3</span> <span class="content">Motivation</span></a>
-    <li><a href="#wording"><span class="secno">4</span> <span class="content">Proposed Wording</span></a>
-    <li><a href="#ack"><span class="secno">5</span> <span class="content">Acknowledgements</span></a>
+    <li>
+     <a href="#motivation"><span class="secno">3</span> <span class="content">Motivation</span></a>
+     <ol class="toc">
+      <li><a href="#std.io"><span class="secno">3.1</span> <span class="content">The <code class="highlight"><c- n>std</c-><c- p>.</c-><c- n>io</c-></code> module problem</span></a>
+     </ol>
+    <li><a href="#prop"><span class="secno">4</span> <span class="content">Proposed Syntax</span></a>
+    <li><a href="#wording"><span class="secno">5</span> <span class="content">Proposed Wording</span></a>
+    <li><a href="#ack"><span class="secno">6</span> <span class="content">Acknowledgements</span></a>
    </ol>
   </nav>
   <main>
@@ -1537,64 +1542,95 @@ means that they can’t be found by regular name look-up rules (qualified or unq
   <c- n>StreamB</c-> <c- n>stream_b</c-> <c- o>=</c-> <c- n>example</c-><c- o>::</c-><c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>;</c-> <c- c1>// ERROR: lookup fails because ADL-only.</c->
 <c- p>}</c->
 </pre>
-   <p>This is important for layering. <code class="highlight"><c- k>operator</c-><c- o>&lt;&lt;</c-></code> is a customization point (an <em>aspect</em>) for interoperability with the standard streams library. If the
-streams library is not in use, the dependency is unwanted; yet,
-forward-declaring is insufficient: the definition, not just the declaration, of
-the hidden friend must appear in-line.</p>
    <p>If the definition appears out-of-line, it adds a declaration to the namespace
 (as evidenced by <code class="highlight"><c- n>A</c-></code>), which means the operator can then be found by
 non-argument dependent lookup. In the case of <code class="highlight"><c- k>operator</c-><c- o>&lt;&lt;</c-></code>, this is
 undesirable, as every class and class template defines one, and so pruning this
 large overload set is very slow.</p>
-   <p>xxxxxxxxxxxxx</p>
-   <p>The difference between these two types is that <code class="highlight"><c- n>widget_one</c-></code> has its comparison operators declared,
-whereas <code class="highlight"><c- n>widget_two</c-></code> does not: this is the only occurrence of a declaration that is not a definition
-in the whole International Standard. These 'inline friend definitions' that don’t have declarations
-have a _significant_ advantage over any of the ones that do have declarations: that is, they can
-_only_ be found by argument-dependent lookup. This means that they can’t be called à la <code class="highlight"><c- n>two</c-><c- o>::</c-><c- k>operator</c-><c- o>==</c-><c- p>(</c-><c- n>widget_two</c-><c- p>{},</c-> <c- n>widget_two</c-><c- p>{})</c-></code> (<code class="highlight"><c- n>widget_two</c-><c- p>{}</c-> <c- o>==</c-> <c- n>widget_two</c-><c- p>{}</c-></code> is the canonical
-usage), and that the overload set for <code class="highlight"><c- k>operator</c-><c- o>==</c-></code> is reduced: this means that looking up <code class="highlight"><c- k>operator</c-><c- o>==</c-></code> is heavily reduced -- this lowers the burden on compile-times, because the compiler
-doesn’t need to consider nearly as many overloads for a type where things don’t matter (e.g. <code class="highlight"><c- k>operator</c-><c- o>==</c-></code> for <code class="highlight"><c- n>vector</c-><c- o>&lt;</c-><c- n>T</c-><c- o>></c-></code> doesn’t need to be considered for <code class="highlight"><c- n>widget_two</c-></code>!). It may also improve
-compiler error messages by reduce noise around name look-up candidate set printouts.</p>
-   <p>The major drawbacks are that <code class="highlight"><c- k>operator</c-><c- o>==</c-></code>:</p>
-   <p>(a) is a _friend_ of <code class="highlight"><c- n>widget_two</c-></code>, yet it does not need to be
-so: just as with member functions, functions (and types) should only be friends if they actually
-need to interact with the protected or private implementation details. Neither <code class="highlight"><c- n>widget_one</c-></code>, nor <code class="highlight"><c- n>widget_two</c-></code> need to interact with the implementation details (as demonstrated by <code class="highlight"><c- n>widget_one</c-></code>).
-(b) must be written inline within the class declaration since adding a declaration for the function
-makes it findable by normal (non-ADL) lookup rules.</p>
-   <p>Since there’s no way to define a function that is not also a declaration, we’re in a bind: do we use
-this 'hidden friend' definition to make operators only findable by ADL, or do we declare them
-instead, and restrict what they can access?</p>
-   <p>We would live all the advantages - with none of the drawbacks - and so we propose a new specifier,
-herein called <code class="highlight"><c- n>nodecl</c-></code>, which allows us to indicate that a function should not have a declaration.</p>
-   <p>Example usage:</p>
-<pre class="language-cpp highlight"><c- k>namespace</c-> <c- n>three</c-> <c- p>{</c->
-   <c- k>class</c-> <c- nc>widget_three</c-> <c- p>{</c->
-   <c- k>public</c-><c- o>:</c->
-      <c- n>widget_three</c-><c- p>()</c-> <c- o>=</c-> <c- k>default</c-><c- p>;</c->
+   <p>It also prevents users from using functions the library provides in
+inappropriate ways. They are only supposed to be used as expressions, and their
+address should not be taken.</p>
+   <h3 class="heading settled" data-level="3.1" id="std.io"><span class="secno">3.1. </span><span class="content">The <code class="highlight"><c- n>std</c-><c- p>.</c-><c- n>io</c-></code> module problem</span><a class="self-link" href="#std.io"></a></h3>
+   <p>The in-line only issue is important for layering. <code class="highlight"><c- k>operator</c-><c- o>&lt;&lt;</c-></code> is a
+customization point (an <em>aspect</em>) for interoperability with the standard
+streams library. If the streams library is not in use by the program, the
+dependency is unwanted; yet, forward-declaring <code class="highlight"><c- n>std</c-><c- o>::</c-><c- n>ostream</c-></code> is insufficient:
+the definition, not just the declaration, of the hidden friend must appear
+in-line, and the definition uses ostream methods, which requires <code class="highlight"><c- n>std</c-><c- o>::</c-><c- n>ostream</c-></code> to be a complete type.</p>
+   <p>The requirement for the definition to appear in-line forces the function to
+live in the same module as the class; and yet, there is a strong impetus to
+ship the <code class="highlight"><c- k>operator</c-><c- o>&lt;&lt;</c-></code> implementation in the separate <code class="highlight"><c- n>io</c-></code> submodule of a
+library, instead of with the main module, which is rendered impossible by the
+in-line requirement.</p>
+   <p>This paper proposes a facility to split the definition from the declaration for
+ADL-only functions.</p>
+   <h2 class="heading settled" data-level="4" id="prop"><span class="secno">4. </span><span class="content">Proposed Syntax</span><a class="self-link" href="#prop"></a></h2>
+   <p>With our proposed feature, you could do this:</p>
+<pre class="highlight"><c- n>module</c-> <c- n>myLib</c-><c- p>;</c->
 
-      <c- k>constexpr</c-> <c- k>explicit</c-> <c- nf>widget_three</c-><c- p>(</c-><c- b>int</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c->
-         <c- o>:</c-> <c- n>x_</c-><c- p>{</c-><c- n>x</c-><c- p>}</c->
-      <c- p>{}</c->
-
-      <c- k>constexpr</c-> <c- b>int</c-> <c- n>x</c-><c- p>()</c-> <c- k>const</c-> <c- k>noexcept</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>x_</c-><c- p>;</c-> <c- p>}</c->
-   <c- k>private</c-><c- o>:</c->
-      <c- b>int</c-> <c- n>x_</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
-   <c- p>};</c->
-
-   <c- k>constexpr</c-> <c- b>bool</c-> <c- k>operator</c-><c- o>==</c-><c- p>(</c-><c- n>widget_three</c-> <c- k>const</c-> <c- n>x</c-><c- p>,</c-> <c- n>widget_three</c-> <c- k>const</c-> <c- n>y</c-><c- p>)</c-> <c- k>noexcept</c-> <c- n>nodecl</c->
-      <c- p>{</c-> <c- k>return</c-> <c- n>x</c-><c- p>.</c-><c- n>x</c-><c- p>()</c-> <c- o>==</c-> <c- n>y</c-><c- p>.</c-><c- n>x</c-><c- p>();</c-> <c- p>}</c->
-
-   <c- k>constexpr</c-> <c- b>bool</c-> <c- k>operator</c-><c- o>!=</c-><c- p>(</c-><c- n>widget_three</c-> <c- k>const</c-> <c- n>x</c-><c- p>,</c-> <c- n>widget_three</c-> <c- k>const</c-> <c- n>y</c-><c- p>)</c-> <c- k>noexcept</c-> <c- n>nodecl</c->
-   <c- p>{</c-> <c- k>return</c-> <c- n>not</c-> <c- p>(</c-><c- n>x</c-> <c- o>==</c-> <c- n>y</c-><c- p>);</c-> <c- p>}</c->
-<c- p>}</c-> <c- c1>// namespace three</c->
+<c- k>namespace</c-> <c- n>example</c-> <c- p>{</c->
+  <c- k>struct</c-> <c- n>C</c-> <c- p>{</c->
+    <c- b>int</c-> <c- n>x_</c-><c- p>;</c->
+  <c- p>};</c->
+<c- p>}</c-><c- c1>// namespace example</c->
 </pre>
-   <p>Both <code class="highlight"><c- k>operator</c-><c- o>==</c-></code> and <code class="highlight"><c- k>operator</c-><c- o>!=</c-></code> in this third namespace are function definitions that _do not_
-have declarations. The <code class="highlight"><c- n>nodecl</c-></code> specifier is a context-sensitive keyword (hence why it is on the RHS
-of the function definition).</p>
-   <p>Besides operators, <code class="highlight"><c- n>nodecl</c-></code> could be useful for overloads of <code class="highlight"><c- n>swap</c-></code>, <code class="highlight"><c- n>iter_swap</c-></code>, and <code class="highlight"><c- n>iter_move</c-></code>.</p>
-   <h2 class="heading settled" data-level="4" id="wording"><span class="secno">4. </span><span class="content">Proposed Wording</span><a class="self-link" href="#wording"></a></h2>
-   <h2 class="heading settled" data-level="5" id="ack"><span class="secno">5. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2>
+   <p>Then, in the submodule <code class="highlight"><c- p>.</c-><c- n>io</c-></code>, we can declare the streaming operator:</p>
+<pre class="highlight"><c- n>module</c-> <c- n>mylib</c-><c- p>.</c-><c- n>io</c-><c- p>;</c->
+<c- n>import</c-> <c- n>mylib</c-><c- p>;</c->
+
+<c- n>import</c-> <c- n>std</c-><c- p>.</c-><c- n>io</c-> <c- c1>// for std::ostream</c->
+
+<c- k>namespace</c-> <c- n>example</c-> <c- p>{</c->
+  <c- c1>// declared and defined in an associated namespace, but different module. No</c->
+  <c- c1>// forward-decl in the class, and it isn’a friend.</c->
+  <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>o</c-><c- p>,</c-> <c- n>C</c-> <c- k>const</c-><c- o>&amp;</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c-> <c- n>nodecl</c-> <c- p>{</c->
+    <c- k>return</c-> <c- n>o</c-> <c- o>&lt;&lt;</c-> <c- s>"C("</c-> <c- o>&lt;&lt;</c-> <c- n>x</c-><c- p>.</c-><c- n>x_</c-> <c- o>&lt;&lt;</c-> <c- s>")"</c-><c- p>;</c->
+  <c- p>}</c->
+<c- p>}</c-> <c- c1>// namespace example</c->
+</pre>
+   <p>Of course, if you’re not trying to solve a layering problem, but just want to
+define your function out-of-line, the example for <code class="highlight"><c- n>B</c-></code> could also be written as:</p>
+<pre class="highlight"><c- n>import</c-> <c- n>std</c-><c- p>.</c-><c- n>io</c-><c- p>;</c->
+
+<c- k>namespace</c-> <c- n>example</c-> <c- p>{</c->
+ <c- k>struct</c-> <c- n>B</c-> <c- p>{</c->
+    <c- c1>// public streaming operator, but ADL-only.</c->
+    <c- k>friend</c-> <c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>o</c-><c- p>,</c-> <c- n>B</c-> <c- k>const</c-><c- o>&amp;</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c-><c- p>;</c->
+
+   <c- k>private</c-><c- o>:</c->
+     <c- b>int</c-> <c- n>x_</c-> <c- o>=</c-> <c- mi>0</c-><c- p>;</c->
+ <c- p>};</c->
+<c- p>}</c-> <c- c1>// namespace example</c->
+
+<c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>example</c-><c- o>::</c-><c- k>operator</c-><c- o>&lt;&lt;</c-><c- p>(</c-><c- n>std</c-><c- o>::</c-><c- n>ostream</c-><c- o>&amp;</c-> <c- n>o</c-><c- p>,</c-> <c- n>B</c-> <c- k>const</c-><c- o>&amp;</c-> <c- n>x</c-><c- p>)</c-> <c- k>noexcept</c-> <c- n>nodecl</c-> <c- p>{</c->
+      <c- k>return</c-> <c- n>o</c-> <c- o>&lt;&lt;</c-> <c- s>"B("</c-> <c- o>&lt;&lt;</c-> <c- n>x</c-><c- p>.</c-><c- n>x_</c-> <c- o>&lt;&lt;</c-> <c- s>")"</c-><c- p>;</c->
+<c- p>}</c->
+</pre>
+   <p>Besides operators, <code class="highlight"><c- n>nodecl</c-></code> could be useful for overloads of <code class="highlight"><c- n>swap</c-></code>, <code class="highlight"><c- n>iter_swap</c-></code>, and <code class="highlight"><c- n>iter_move</c-></code>, and things like <code class="highlight"><c- n>boost</c-><c- o>::</c-><c- n>serialization</c-></code>.</p>
+   <h2 class="heading settled" data-level="5" id="wording"><span class="secno">5. </span><span class="content">Proposed Wording</span><a class="self-link" href="#wording"></a></h2>
+   <p>In [dcl.decl], modify paragraph 5 as follows:</p>
+   <p>
+    _parameters_and_qualifiers_:<br>     ( _parameter-declaration-clause_ _<sub>opt</sub>_ ) _cv-qualifier-seq_ _<sub>opt</sub>_ _ref-qualifier_ _<sub>opt</sub>_ _noexcept-specifier_ _<sub>opt</sub>_ 
+    <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins>
+     _attribute-specifier-seq_ _<sub>opt</sub>_ <br><br>
+   </p>
+   <ins>_nodecl-specifier:_</ins>
+   <br>     
+   <ins>
+    <tt>nodecl </tt>
+   </ins>
+   <br>     
+   <ins>
+    <tt>nodecl </tt>
+    ( _constant-expression_ )
+   </ins>
+   <p>Add a new paragraph below as follows:</p>
+   <ins>
+     In a <em>nodecl-specifier</em>, the _constant-expression_, if supplied, shall be a contextually converted constant expression of type 
+    <tt>bool</tt>
+    . 
+   </ins>
+   <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2>
   </main>
 <script>
 (function() {
