@@ -167,6 +167,13 @@ _parameters_and_qualifiers_:<br>
 <ins>_nodecl-specifier:_</ins><br>
  &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt></ins><br>
  &nbsp;&nbsp;&nbsp;&nbsp;<ins><tt>nodecl </tt>( _constant-expression_ )</ins>
+ 
+ Add a new paragraph below as follows:
+ 
+ <ins>
+ In a <em>nodecl-specifier</em>, the _constant-expression_, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>.
+ </ins>
+ 
 
 Acknowledgements {#ack}
 ================
