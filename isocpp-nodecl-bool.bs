@@ -178,7 +178,7 @@ _function-definition_:<br>
  Add a new paragraph below as follows:
  
  <ins>
- In a <em>nodecl-specifier</em>, the _constant-expression_, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>; if it evaluates to <tt>true</tt>, or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</rm>.
+ In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type <tt>bool</tt>; if it evaluates to <tt>true</tt>, or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition</rm>.
  </ins>
  
  
