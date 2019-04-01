@@ -1230,7 +1230,7 @@ Possible extra rowspan handling
   <meta content="Bikeshed version 04b354547d55896d854a81cffb3965bd6f8758ec" name="generator">
   <link href="https://atomgalaxy.github.io/isocpp-nodecl-bool/isocpp-nodecl-bool.html" rel="canonical">
   <link href="https://isocpp.org/favicon.ico" rel="icon">
-  <meta content="27286af8a1d998a10c774a3b32a0727b7e1f1bc8" name="document-revision">
+  <meta content="ceccd77f56ab0e8045bbae82b1c1a21e632ded56" name="document-revision">
 <style>
 .ins, ins, ins *, span.ins, span.ins * {
   background-color: rgb(200, 250, 200);
@@ -1608,11 +1608,11 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
 </pre>
    <p>Besides operators, <code class="highlight"><c- n>nodecl</c-></code> could be useful for overloads of <code class="highlight"><c- n>swap</c-></code>, <code class="highlight"><c- n>iter_swap</c-></code>, and <code class="highlight"><c- n>iter_move</c-></code>, and things like <code class="highlight"><c- n>boost</c-><c- o>::</c-><c- n>serialization</c-></code>.</p>
    <h2 class="heading settled" data-level="5" id="wording"><span class="secno">5. </span><span class="content">Proposed Wording</span><a class="self-link" href="#wording"></a></h2>
-   <p>In [dcl.decl], modify paragraph 5 as follows:</p>
+   <p>In [dcl.fct.def.general], modify paragraph 1 as follows:</p>
    <p>
-    _parameters_and_qualifiers_:<br>     ( _parameter-declaration-clause_ _<sub>opt</sub>_ ) _cv-qualifier-seq_ _<sub>opt</sub>_ _ref-qualifier_ _<sub>opt</sub>_ _noexcept-specifier_ _<sub>opt</sub>_ 
+    _function-definition_:<br>      _attribute-specifier-seq_ _<sub>opt</sub>_ _decl-specifier-seq_ _<sub>opt</sub>_ _declarator_ _virt-specifier-seq_ _<sub>opt</sub>_ 
     <ins>_nodecl-specifier_ _<sub>opt</sub>_</ins>
-     _attribute-specifier-seq_ _<sub>opt</sub>_ <br><br>
+     _function-body_ <br><br>
    </p>
    <ins>_nodecl-specifier:_</ins>
    <br>     
@@ -1626,13 +1626,15 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
    </ins>
    <p>Add a new paragraph below as follows:</p>
    <ins>
-     In a <em>nodecl-specifier</em>, the _constant-expression_, if supplied, shall be a contextually converted constant expression of type 
+     In a <em>nodecl-specifier</em>, the <em>constant-expression</em>, if supplied, shall be a contextually converted constant expression of type 
     <tt>bool</tt>
-    . 
+    ; if it evaluates to 
+    <tt>true</tt>
+    , or if no <em>constant-expression</em> is supplied, the function definition is a <em>nodecl-definition. </em>
    </ins>
-   <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2>
+   <em> <h2 class="heading settled" data-level="6" id="ack"><span class="secno">6. </span><span class="content">Acknowledgements</span><a class="self-link" href="#ack"></a></h2> </em>
   </main>
-<script>
+  <em> <script>
 (function() {
   "use strict";
   var collapseSidebarText = '<span aria-hidden="true">←</span> '
@@ -1760,4 +1762,4 @@ define your function out-of-line, the example for <code class="highlight"><c- n>
   }
 
 })();
-</script>
+</script> </em>
